@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import styles from "./HootDetails.module.css";
+
 
 import * as hootService from "../../services/hootService";
 
@@ -25,24 +25,24 @@ export default function HootDetails(props) {
   if (!hoot) return <main>Loading...</main>;
 
   return (
-    <main className={styles.container}>
-      <header className={styles.header}>
-          <p className={styles.p}>{hoot.category.toUpperCase()}</p>
-          <h1 className={styles.h1}>{hoot.title}</h1>
-          <p className={styles.p}>{hoot.author.username}</p>
+    <main>
+      <header>
+          <p>{hoot.category.toUpperCase()}</p>
+          <h1 >{hoot.title}</h1>
+          <p >{hoot.author.username}</p>
       </header>
-      <p className={styles.p}>{hoot.text}</p>
-      <section className={styles.section}>
+      <p>{hoot.text}</p>
+      <section >
         <h2>comments</h2>
         {/* {!hoot.comments.length === 0 ? <p>There are no comments</p> : ()} */}
         {!hoot.comments.length && <p>There are no comments</p>}
         {hoot.comments.map((comment) => {
           return (
-            <article key={comment._id} className={styles.article}>
-              <header className={styles.header}>
-                <p className={styles.p}>{comment.author.username}</p>
+            <article key={comment._id} >
+              <header >
+                <p >{comment.author.username}</p>
               </header>
-              <p className={styles.p}>{comment.text}</p>
+              <p>{comment.text}</p>
             </article>
           );
         })}
