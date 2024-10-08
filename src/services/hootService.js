@@ -25,4 +25,55 @@ async function show(hootId) {
   }
 }
 
-export { index, show };
+async function create(hootFormData) {
+  try {
+    const response = await fetch(BASE_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(hootFormData),
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err, "<-- err in create hootService");
+  }
+}
+
+
+async function createComment(hootId, commentFormData){
+  try{
+      const response = await fetch(`${BASE_URL}/${hootId}/comments`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(commentFormData)
+      })
+      const data = await response.json()
+      return data
+  } catch(err){
+    console.log(err, '<-- err in createComment')
+  }
+}
+
+
+async function deleteHoot(hootId){
+  try{
+      const response = await fetch(`${BASE_URL}/${hootId}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      const data = await response.json()
+      return data
+  }catch(err){
+    console.log(err, '<-- err in deleteHoot')
+  }
+}
+
+
+
+export { index, show, create, createComment, deleteHoot };
