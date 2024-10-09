@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { AuthedUserContext } from "../../App";
 
@@ -16,7 +16,7 @@ export default function HootDetails(props) {
 
   useEffect(() => {
     async function getHoot() {
-      // hootId comes from the params, and thats what are show
+      // hootId comes from the params, and thats what our show
       // request needs in order to make the http request to express
       const hootData = await hootService.show(hootId);
       setHoot(hootData);
@@ -42,6 +42,11 @@ export default function HootDetails(props) {
 
         {hoot.author._id === loggedInUser._id ? (
           <button onClick={() => props.handleDeleteHoot(hootId)}>Delete</button>
+        ) : (
+          ""
+        )}
+        {hoot.author._id === loggedInUser._id ? (
+          <Link to={`/hoots/${hootId}/edit`}>Edit</Link>
         ) : (
           ""
         )}

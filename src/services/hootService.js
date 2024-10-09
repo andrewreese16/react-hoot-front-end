@@ -75,5 +75,23 @@ async function deleteHoot(hootId){
 }
 
 
+async function update(hootId, hootFormData){
+  try{
+    const response = await fetch(`${BASE_URL}/${hootId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(hootFormData)
+    })
+    const data = await response.json()
+    return data
+  }catch(err){
+    console.log(err, '<-- err in the update')
+  }
+}
 
-export { index, show, create, createComment, deleteHoot };
+
+
+export { index, show, create, createComment, deleteHoot, update };
